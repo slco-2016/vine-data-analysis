@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Runs analysis on Vine data files</h1>
+
+<h4>Files found:</h4>
+<div id="fileNames">
+</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-1.12.3.js" integrity="sha256-1XMpEtA4eKXNNpXcJ1pmMPs8JV+nwLdEqwiJeCQEkyc=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	var types = ["cjs_judge", "vine_case", "vine_charge", "vine_court_event", "vine_delete"]
+
+	$.ajax({
+		url: "./example-set/",
+		success: function (data) {
+			$("#fileNames").html("<ul>");
+			$(data).find("a").each(function () {
+				var that = this;
+
+				types.forEach(function (ea) { 
+					var href = that.href;
+
+					if (that.href && that.href.indexOf(ea) > -1) {
+						href = href.split("/");
+						href = href[href.length - 1];
+						$("#fileNames").append("<li>" + href + "</li>");
+					}
+					
+				});
+
+			});
+			$("#fileNames").append("</ul>");
+		}     
+	});
+
+</script>
+
+</html>
